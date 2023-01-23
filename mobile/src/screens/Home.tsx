@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { HabitDay, DAY_SIZE } from "../components/HabitDay";
 
 import { generateRangeDatesFromYearStart } from '../utils/generate-range-between-dates';
+import { useNavigation } from '@react-navigation/native';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
@@ -11,6 +12,9 @@ const minimumSummaryDatesSize = 18 * 5;
 const amountOfdaysToFill = minimumSummaryDatesSize - datesFromYearStart.length;
 
 export function Home() {
+
+    const { navigate } = useNavigation();
+
     return (
         <View className="flex-1 bg-background px-8 pt-16">
             <Header />
@@ -35,7 +39,10 @@ export function Home() {
                 >
                     {
                         datesFromYearStart.map((d, i) => (
-                            <HabitDay key={i} />
+                            <HabitDay
+                                key={i}
+                                onPress={() => navigate('habit', { date: d.toISOString() })}
+                            />
                         ))
                     }
                     {
